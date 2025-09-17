@@ -5,12 +5,12 @@ import win32con
 import csv
 import glob
 import shutil
-import datetime
-import time
 import exiftool
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
+inputfolder_name = "input"
 exportfolder_name = "export"
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
 os.chdir(script_dir)
 
 def move_file(source_path, destination_dir):
@@ -108,6 +108,7 @@ def update_metadata_from_csv(folder_name):
                     destination_folder = os.path.join(script_dir, exportfolder_name)
                     move_file(imgpath, destination_folder)
 
+                    # # Takes a long time to apply!
                     # # Construct the ExifTool command.
                     # # The -overwrite_original flag is important to modify in place.
                     # # You can add more tags as needed.
@@ -142,9 +143,13 @@ if __name__ == "__main__":
     except OSError as e:
         print(f"Error creating directory: {e}")
     
-    # Find all directories that match the pattern "iCloud Photos Part*"
-    for folder in glob.glob("iCloud Photos Part*/"):
+    try:
+        os.makedirs((os.path.join(script_dir, inputfolder_name)), exist_ok=True)
+        print(f"Directory '{inputfolder_name}' created successfully (or already exists).")
+    except OSError as e:
+        print(f"Error creating directory: {e}")
+    
+    # Find all directories that match the pattern "iCloud* in the input folder"
+    for folder in glob.glob(os.path.join("input", "iCloud*/")):
         folder_name = folder.rstrip(os.path.sep)
-        # print ("")
-        # print (f"--- Processing folder {folder_name}")
         update_metadata_from_csv(folder_name)
