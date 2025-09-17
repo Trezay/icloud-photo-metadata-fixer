@@ -15,6 +15,7 @@ This tool is useful when unzipping large multi-part iCloud Photo archives and wa
 2. Install the following modules `pip install -U pyexiftool pypiwin32`
 2. Unzip all apple photos. Move all the unzipped folders to the input folder. The unzipped folders must start with the name "iCloud". Full name of a directory could be like "iCloud Photos Part 1 of 166", or something familiar.
     ***Example of the input folder:***
+    
     .\input\
         ├── iCloud Photos Part 1 of 166\
         │      └── Photos\
