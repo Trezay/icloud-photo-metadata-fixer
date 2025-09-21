@@ -102,7 +102,7 @@ def update_metadata_from_csv(folder_name):
                     )
 
                     filetime = pywintypes.Time(date_object)
-                    win32file.SetFileTime(handle, filetime, None, None) # Set CreationTime only (leave others as None if you don’t want to change them)
+                    win32file.SetFileTime(handle, filetime, None, filetime) # Set CreationTime only (leave others as None if you don’t want to change them)
                     handle.close()
 
                     destination_folder = os.path.join(script_dir, exportfolder_name)
